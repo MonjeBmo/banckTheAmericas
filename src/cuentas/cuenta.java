@@ -25,4 +25,7 @@ public abstract class cuenta {
         this.saldo = saldo;
     }
 
+    public void sumarIntereses() {
+    }
+
 }

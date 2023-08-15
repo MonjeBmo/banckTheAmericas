@@ -16,7 +16,7 @@ public class plazoFijo extends cuenta {
 
     // Método para verificar si ha llegado el vencimiento
     boolean esVencimiento() {
-        if (this.dateVencimiento.isAfter(LocalDate.now())) {
+        if (this.dateVencimiento.isBefore(LocalDate.now())) {
             return true; // Si la fecha de vencimiento es posterior a la fecha actual, devuelve verdadero
         }
         return false; // De lo contrario, devuelve falso
@@ -27,8 +27,18 @@ public class plazoFijo extends cuenta {
     public double retirarSaldos(double saldo) {
         if (this.saldo >= saldo) { // Verifica si hay suficiente saldo para el retiro
             if (esVencimiento()) { // Verifica si ha llegado el vencimiento
+                System.out.println("Retiro antes de tiempo");
                 this.saldo -= saldo; // Realiza el retiro
-                var totalEntregar = saldo - (saldo * this.tasaRecargo); // Calcula el monto a entregar restando el recargo
+                var saldoViejo = super.getSaldo();
+                var totalEntregar = saldo - (saldo * this.tasaRecargo); // Calcula el monto a entregar restando el
+                var banckRecargo = (saldoViejo-totalEntregar);                   // recargo
+                if (banckRecargo <= 0) {
+                    totalEntregar = 0;
+                    System.out.println("Saldo insuficiente");
+                    setSaldo(saldoViejo+saldo);
+                return totalEntregar;
+            }
+                System.out.println("Recargo de : " + banckRecargo);
                 return totalEntregar; // Devuelve el monto a entregar
             }
             this.saldo -= saldo; // Realiza el retiro si no ha llegado el vencimiento
