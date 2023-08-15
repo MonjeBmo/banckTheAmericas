@@ -9,17 +9,23 @@ public class sobreGirada extends cuenta {
     }
 
     public void cargarInteres() {
-        this.saldo += (this.saldo * this.tasaCredito);
+        if (this.saldo < 0) {
+            double interes = this.saldo * this.tasaCredito;
+            this.saldo += interes;
+        }
     }
 
     @Override
     public double retirarSaldos(double saldo) {
-        this.saldo -= saldo;
-        if (this.saldo <= 0) {
+        if (saldo <= this.saldo) {
+            this.saldo -= saldo;
+            return getSaldo();
+        } else {
+            this.saldo -= saldo;
+            System.out.println("Se hiso la transferencia pero debe " + -getSaldo());
             cargarInteres();
-            return getSaldo() * -1;
+            return -getSaldo();
         }
-        return getSaldo();
     }
 
     // getters and setters

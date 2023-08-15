@@ -7,7 +7,7 @@ import cuentas.ahorro;
 import cuentas.cheque;
 import cuentas.cuenta;
 import cuentas.plazoFijo;
-// import cuentas.sobreGirada;
+import cuentas.sobreGirada;
 
 public class mainClass {
 
@@ -81,6 +81,8 @@ public class mainClass {
     }
 
     public static void sobregiro() {
-        // cuenta c = new sobreGirada(0, 0);
+        cuenta c = new sobreGirada(saldo, 0.2);
+        System.out.println("Saldo: " + c.retirarSaldos(2500));
+        System.out.println("saldo " + c.getSaldo());
     }
 }
