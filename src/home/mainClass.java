@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.Scanner;
 
 import cuentas.ahorro;
-// import cuentas.cheque;
+import cuentas.cheque;
 import cuentas.cuenta;
 import cuentas.plazoFijo;
 // import cuentas.sobreGirada;
@@ -64,7 +64,20 @@ public class mainClass {
     }
 
     public static void cheques() {
-        // cuenta c = new cheque(0, 0, 0);
+        cheque c = new cheque(saldo, 1, 5);
+        c.retirarSaldos(10);
+        c.retirarSaldos(10);
+        c.retirarSaldos(10);
+        c.retirarSaldos(10);
+        c.retirarSaldos(10);
+        c.retirarSaldos(10);
+        c.retirarSaldos(10);
+        c.retirarSaldos(10);
+        c.retirarSaldos(10);
+        System.out.println("Saldo Actual sin recargo: " + c.getSaldo());
+        System.out.println("No. de Transacciones : " + cheque.noTransacciones);
+        c.aplicarRecargo();
+        System.out.println("Saldo Actual con el recargo: " + c.getSaldo());
     }
 
     public static void sobregiro() {
