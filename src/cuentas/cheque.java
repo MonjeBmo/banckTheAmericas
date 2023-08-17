@@ -42,8 +42,7 @@ public class cheque extends cuenta {
     }
 
     public void printTransacciones() {
-        String msj = "";
-        msj = "No. de Transaccion " + (noTransacciones);
+        String msj = "No. de Transaccion " + (noTransacciones);
         System.out.println(msj);
     }
 

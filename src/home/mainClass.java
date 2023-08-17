@@ -11,78 +11,84 @@ import cuentas.sobreGirada;
 
 public class mainClass {
 
-    static double saldo = 2000;
-
     public static void main(String[] args) {
 
         Scanner s = new Scanner(System.in);
-        var x = 0;
+        int x;
         do {
-            System.out.println("menu");
+            System.out.println("<---menu--->");
             System.out.println("1- Cuenta de Ahorro");
             System.out.println("2- Cuenta de Plazo Fijo");
             System.out.println("3- Cuenta de Cheques");
             System.out.println("4- Cuenta sobregirada");
             System.out.println("6- salir");
+            System.out.println("Ingrese su opcion : ");
             x = s.nextInt();
 
             switch (x) {
-                case 1:
-                    ahorro();
-                    break;
-                case 2:
-                    plazoFijo();
-                    break;
-                case 3:
-                    cheques();
-                    break;
-                case 4:
-                    sobregiro();
-                    break;
-                default:
-                    System.out.println("Adios :D");
-                    break;
+                case 1 -> ahorro(s);
+                case 2 -> plazoFijo(s);
+                case 3 -> cheques(s);
+                case 4 -> sobregiro(s);
+                default -> System.out.println("Adios :D");
             }
 
-        } while (x == 6);
+        } while (x != 6);
         s.close();
     }
 
-    public static void ahorro() {
-        double tasaInteres = 0.02;
+    public static void ahorro(Scanner s) {
+        double tasaInteres = 0.02, saldo = 2000;
         cuenta c = new ahorro(saldo, tasaInteres);
         c.depositarSaldo(0);
         System.out.println("El saldo es de : " + c.getSaldo());
-        System.out.println("El nuevo saldo al retirar es de : " + c.retirarSaldos(200));
+        System.out.println("Ingrese el saldo a retirar : ");
+        double retirar = s.nextDouble();
+        System.out.println("El nuevo saldo al retirar es de : " + c.retirarSaldos(retirar));
     }
 
-    public static void plazoFijo() {
-        LocalDate date = LocalDate.of(2023, 8, 13);
+    public static void plazoFijo(Scanner s) {
+        double saldo = 2000;
+        System.out.println("Ingrese el dia: ");
+        int day = s.nextInt();
+        System.out.println("Ingrese el mes: ");
+        int month = s.nextInt();
+        System.out.println("Ingrese el año: ");
+        int year = s.nextInt();
+
+        LocalDate date = LocalDate.of(year, month, day);
         cuenta c = new plazoFijo(saldo, 0.05, date);
-        System.out.println("El saldo a entregar : " + c.retirarSaldos(1000));
+
+        System.out.println("Ingrese la cantidad a retirar : ");
+        double retirar = s.nextDouble();
+        System.out.println("El saldo a entregar : " + c.retirarSaldos(retirar));
         System.out.println("Nuevo saldo : " + c.getSaldo());
     }
 
-    public static void cheques() {
-        cheque c = new cheque(saldo, 1, 5);
-        c.retirarSaldos(10);
-        c.retirarSaldos(10);
-        c.retirarSaldos(10);
-        c.retirarSaldos(10);
-        c.retirarSaldos(10);
-        c.retirarSaldos(10);
-        c.retirarSaldos(10);
-        c.retirarSaldos(10);
-        c.retirarSaldos(10);
+    public static void cheques(Scanner s) {
+        cheque c = new cheque(0, 1, 5);
+        c.setSaldo(2000);
+        String x;
+        do {
+            System.out.println("Su saldo es de : " + c.getSaldo());
+            System.out.println("Cantidad a retirar : ");
+            double retirar = s.nextDouble();
+            c.retirarSaldos(retirar);
+            System.out.println("Otra transaccion o cancelar ingrese la C");
+            x = s.next();
+        } while (!(x.equals("C") || x.equals("c")));
+
         System.out.println("Saldo Actual sin recargo: " + c.getSaldo());
         System.out.println("No. de Transacciones : " + cheque.noTransacciones);
         c.aplicarRecargo();
         System.out.println("Saldo Actual con el recargo: " + c.getSaldo());
     }
 
-    public static void sobregiro() {
-        cuenta c = new sobreGirada(saldo, 0.2);
-        System.out.println("Saldo: " + c.retirarSaldos(2500));
-        System.out.println("saldo " + c.getSaldo());
+    public static void sobregiro(Scanner s) {
+        cuenta c = new sobreGirada(0, 0.2);
+        c.setSaldo(2000);
+        System.out.println("Ingrese la cantidad a retirar : ");
+        double retirar = s.nextDouble();
+        System.out.println("Saldo Nuevo : " + c.retirarSaldos(retirar));
     }
 }
