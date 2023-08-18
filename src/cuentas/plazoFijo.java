@@ -29,21 +29,21 @@ public class plazoFijo extends cuenta {
             if (esVencimiento()) { // Verifica si ha llegado el vencimiento
                 System.out.println("Retiro antes de tiempo");
                 this.saldo -= saldo; // Realiza el retiro
-                var saldoViejo = super.getSaldo();
-                var totalEntregar = saldo - (saldo * this.tasaRecargo); // Calcula el monto a entregar restando el
-                var banckRecargo = (saldoViejo-totalEntregar);                   // recargo
+                var banckRecargo = (saldo * this.tasaRecargo);
+                var totalEntregar = saldo - banckRecargo; // Calcula el monto a entregar restando el
+                // recargo
                 if (banckRecargo <= 0) {
                     totalEntregar = 0;
                     System.out.println("Saldo insuficiente");
-                    setSaldo(saldoViejo+saldo);
-                return totalEntregar;
-            }
+                    return totalEntregar;
+                }
                 System.out.println("Recargo de : " + banckRecargo);
                 return totalEntregar; // Devuelve el monto a entregar
             }
             this.saldo -= saldo; // Realiza el retiro si no ha llegado el vencimiento
             return getSaldo(); // Devuelve el saldo actual
         }
+        System.out.println("Saldo insuficiente");
         return 0; // Si no hay suficiente saldo, devuelve 0
     }
 

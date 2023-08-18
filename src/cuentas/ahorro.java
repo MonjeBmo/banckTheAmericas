@@ -14,7 +14,7 @@ public class ahorro extends cuenta {
     public void sumarIntereses() {
         double saldoActual = super.getSaldo(); // Obtiene el saldo actual
         super.setSaldo(saldoActual + (super.getSaldo() * this.tasaInteres)); // Calcula e incrementa el saldo con los
-                                                                             // intereses
+        // intereses
     }
 
     // Método para retirar saldo
@@ -23,9 +23,10 @@ public class ahorro extends cuenta {
         sumarIntereses();
         System.out.println("saldo + intereses : " + this.saldo);
         if (super.getSaldo() >= saldo) { // Verifica si hay suficiente saldo para el retiro
-            this.saldo -= saldo; // Realiza el retiro
-            return getSaldo(); // Devuelve el saldo actual
+
+            return this.saldo -= saldo; // Devuelve el saldo actual
         }
+        System.out.println("saldo insuficiente");
         return 0; // Si no hay suficiente saldo, devuelve 0
     }
 
